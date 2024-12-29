@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   speech-to-text:
+    container_name: SpeechToText
     build: .
     ports:
       - "8080:8080"

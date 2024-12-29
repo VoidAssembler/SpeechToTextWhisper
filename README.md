@@ -73,11 +73,17 @@ java -jar target/speech-to-text-1.0.0.jar
 docker-compose up
 ```
 
-## CI/CD
+## API Documentation
 
-Проект использует GitHub Actions для автоматической сборки и публикации Docker образа.
-При пуше в ветку `main` или создании тега с версией (например, `v1.0.0`), 
-образ автоматически собирается и публикуется в GitHub Container Registry.
+API документация доступна через Swagger UI по адресу:
+```
+http://localhost:8080/swagger-ui.html
+```
+
+Также доступна OpenAPI спецификация в формате JSON:
+```
+http://localhost:8080/v3/api-docs
+```
 
 ## API Endpoints
 
@@ -87,7 +93,7 @@ docker-compose up
 
 **Параметры запроса:**
 
-- `file` (обязательный) - аудиофайл (WAV, MP3, FLAC, AAC)
+- `file` (обязательный) - аудиофайл (WAV, MP3, FLAC, AAC, OGG)
 - `model` (опционально) - модель Whisper (tiny, base, small, medium, large)
 - `language` (опционально) - язык аудио (auto, en, ru, es, fr, de, it, pt, nl, pl, tr, zh)
 
@@ -114,6 +120,15 @@ curl -X POST "http://localhost:8080/api/v1/transcribe" \
   }
 }
 ```
+
+## Поддерживаемые форматы
+
+API поддерживает следующие форматы аудио файлов:
+- WAV (audio/wav, audio/x-wav)
+- MP3 (audio/mp3, audio/mpeg)
+- FLAC (audio/flac)
+- AAC (audio/aac, audio/x-aac)
+- OGG (audio/ogg, application/ogg, video/ogg)
 
 ## Обработка ошибок
 

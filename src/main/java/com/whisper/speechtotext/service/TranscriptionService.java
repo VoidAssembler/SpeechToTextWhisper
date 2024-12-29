@@ -1,11 +1,13 @@
 package com.whisper.speechtotext.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.whisper.speechtotext.config.WhisperConfig;
 import com.whisper.speechtotext.dto.TranscriptionResponse;
 import com.whisper.speechtotext.exception.TranscriptionException;
 import com.whisper.speechtotext.model.Language;
 import com.whisper.speechtotext.model.WhisperModel;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -107,7 +109,7 @@ public class TranscriptionService {
             return TranscriptionResponse.success(
                 whisperOutput.text,
                 language.getCode(),
-                whisperOutput.duration,
+                calculateDuration(whisperOutput),
                 model.getValue()
             );
         } finally {
@@ -115,8 +117,25 @@ public class TranscriptionService {
         }
     }
 
+    private double calculateDuration(WhisperOutput output) {
+        if (output.segments == null || output.segments.isEmpty()) {
+            return 0.0;
+        }
+        return output.segments.get(output.segments.size() - 1).end;
+    }
+
+    @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class WhisperOutput {
         public String text;
-        public double duration;
+        public List<Segment> segments;
+    }
+
+    @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    private static class Segment {
+        public double start;
+        public double end;
+        public String text;
     }
 }
