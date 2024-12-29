@@ -1,0 +1,16 @@
+server:
+  port: 8080
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 25MB
+
+whisper:
+  timeout-seconds: 300
+
+logging:
+  level:
+    root: INFO
+    com.whisper.speechtotext: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

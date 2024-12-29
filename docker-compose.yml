@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  speech-to-text:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/app/models
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - WHISPER_SCRIPT_PATH=/app/scripts/transcribe.py
+      - WHISPER_MODEL_PATH=/app/models
+    restart: unless-stopped
