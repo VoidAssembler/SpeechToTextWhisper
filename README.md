@@ -48,8 +48,8 @@ docker-compose up --build
 
 2. Или используйте готовый образ:
 ```bash
-docker pull ghcr.io/[username]/speech-to-text:latest
-docker run -p 8080:8080 ghcr.io/[username]/speech-to-text:latest
+docker pull ghcr.io/VoidAssembler/SpeechToTextWhisper:latest
+docker run -p 8080:8080 ghcr.io/VoidAssembler/SpeechToTextWhisper:latest
 ```
 
 ## Конфигурация
